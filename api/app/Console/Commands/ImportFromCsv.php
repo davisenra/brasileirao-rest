@@ -50,10 +50,15 @@ class ImportFromCsv extends Command
             $stadiumName = preg_replace('/\([^)]+\)/', '', $row[11]); // remove parenthesis
             $stadiumName = preg_replace('/^\x{A0}/u', '', $stadiumName); // remove non-breaking space
             $stadiumName = str_replace(['*'], '', $stadiumName);
+            $stadiumName = trim($stadiumName);
+
+            if (in_array($stadiumName, ['A Campanella', 'A.Campanella'])) {
+                $stadiumName = 'Anacleto Campanella'; // dirty data
+            }
 
             $roundsDtos[] = new RoundDto(
                 matchDate: \DateTime::createFromFormat('d/m/Y H:i', "$row[2] $row[3]"),
-                stadiumName: trim($stadiumName),
+                stadiumName: $stadiumName,
                 homeClubName: $row[4],
                 awayClubName: $row[5],
                 homeClubScore: $row[12] ? (int) $row[12] : 0,

@@ -21,11 +21,11 @@ class Club extends Model
 
     public function homeRounds(): HasMany
     {
-        return $this->hasMany(Round::class);
+        return $this->hasMany(Round::class, 'home_club_id');
     }
 
     public function awayRounds(): HasMany
     {
-        return $this->hasMany(Round::class);
+        return $this->hasMany(Round::class, 'away_club_id');
     }
 }
