@@ -24,6 +24,7 @@ It's common to greenfield projects without any prior data. As a challenge, I dec
 - RESTful endpoints
 - Integration tests
 - API documentation
+- Authentication
 
 ### Stack
 
