@@ -39,7 +39,7 @@ class AuthControllerTest extends TestCase
             'password_confirmation' => 'totallysafepassword',
         ]);
 
-        $response = $this->postJson('/login', [
+        $response = $this->postJson('/access_token', [
             'email' => 'john@doe.com',
             'password' => 'totallysafepassword',
         ]);

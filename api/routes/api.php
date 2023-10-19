@@ -7,13 +7,13 @@ use App\Http\Controllers\SeasonController;
 use App\Http\Controllers\StadiumController;
 
 Route::post('/register', [AuthController::class, 'register']);
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/access_token', [AuthController::class, 'accessToken']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/v1/stadiums', [StadiumController::class, 'index']);
-    Route::get('/v1/stadiums/{id}', [StadiumController::class, 'show']);
+    Route::get('/v1/stadiums/{id}', [StadiumController::class, 'show'])->where('id', '[0-9]+');
     Route::get('/v1/clubs', [ClubController::class, 'index']);
-    Route::get('/v1/clubs/{id}', [ClubController::class, 'show']);
+    Route::get('/v1/clubs/{id}', [ClubController::class, 'show'])->where('id', '[0-9]+');
     Route::get('/v1/seasons', [SeasonController::class, 'index']);
-    Route::get('/v1/seasons/{id}', [SeasonController::class, 'show']);
+    Route::get('/v1/seasons/{id}', [SeasonController::class, 'show'])->where('id', '[0-9]+');
 });

@@ -8,11 +8,15 @@ use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Knuckles\Scribe\Attributes\Response;
 use App\Http\Requests\RegisterUserRequest;
 use App\Http\Requests\AuthenticateUserRequest;
 
 class AuthController extends Controller
 {
+    #[Response([
+        "message" => "User successfully registered"
+    ], 201)]
     public function register(RegisterUserRequest $request): JsonResponse
     {
         $user = new User();
@@ -26,7 +30,14 @@ class AuthController extends Controller
         ], 201);
     }
 
-    public function login(AuthenticateUserRequest $request): JsonResponse
+    #[Response([
+        "message" => "Successfully authenticated",
+        "token" => "1|sz0LJq5iNJ5u5S8BJ5mFuhSSGxHgHLEJsGQ3aokIcdc54ae6",
+    ], 200)]
+    #[Response([
+        "message" => "Unauthenticated",
+    ], 401)]
+    public function accessToken(AuthenticateUserRequest $request): JsonResponse
     {
         if (Auth::attempt($request->validated())) {
             $user = $request->user();
